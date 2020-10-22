@@ -1,0 +1,61 @@
+{
+    "name": "kirschbaum-development/laravel-openapi-validator",
+    "description": "Automatic OpenAPI validation for Laravel HTTP tests",
+    "keywords": [
+        "laravel",
+        "openapi",
+        "swagger",
+        "validation"
+    ],
+    "homepage": "https://github.com/kirschbaum-development/laravel-openapi-validator",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zack Teska",
+            "email": "zack@kirschbaumdevelopment.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3",
+        "illuminate/support": "^6.0|^7.0|^8.0",
+        "illuminate/testing": "^6.0|^7.0|^8.0",
+        "league/openapi-psr7-validator": "^0.12.0",
+        "nyholm/psr7": "^1.3",
+        "symfony/psr-http-message-bridge": "^2.0"
+    },
+    "require-dev": {
+        "laravel/legacy-factories": "^1.0@dev",
+        "orchestra/testbench": "4.*|5.*|6.*",
+        "mockery/mockery": "^1.3.1",
+        "phpunit/phpunit": "^9.0",
+        "spatie/phpunit-watcher": "^1.22",
+        "fzaninotto/faker": "^1.9.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kirschbaum\\OpenApiValidator\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kirschbaum\\OpenApiValidator\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "create-json-spec": "php -r \"file_put_contents('tests/fixtures/OpenAPI.json', json_encode(yaml_parse_file('tests/fixtures/OpenAPI.yaml')));\""
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kirschbaum\\OpenApiValidator\\OpenApiValidatorServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}
