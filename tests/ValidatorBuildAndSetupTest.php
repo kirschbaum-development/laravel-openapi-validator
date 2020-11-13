@@ -108,11 +108,29 @@ class ValidatorBuildAndSetupTest extends TestCase
             yield "Skips 50${i} by default" => [500 + $i, [], true];
         }
 
-        yield 'Skips other 500s by default (1)' => [fn ($faker) => $faker->numberBetween(505, 599), [], true];
+        yield 'Skips other 500s by default (1)' => [
+            function ($faker) {
+                return $faker->numberBetween(505, 599);
+            },
+            [],
+            true,
+        ];
 
-        yield 'Skips other 500s by default (2)' => [fn ($faker) => $faker->numberBetween(505, 599), [], true];
+        yield 'Skips other 500s by default (2)' => [
+            function ($faker) {
+                return $faker->numberBetween(505, 599);
+            },
+            [],
+            true,
+        ];
 
-        yield 'Skips other 500s by default (3)' => [fn ($faker) => $faker->numberBetween(505, 599), [], true];
+        yield 'Skips other 500s by default (3)' => [
+            function ($faker) {
+                return $faker->numberBetween(505, 599);
+            },
+            [],
+            true,
+        ];
 
         yield 'Skips single code' => [200, 200, true];
 
