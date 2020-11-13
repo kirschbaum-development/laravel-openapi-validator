@@ -43,6 +43,7 @@ jobs:
         run: |
           composer --version
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer update --prefer-dist --no-interaction --no-suggest
           composer dump
 
       - name: Execute tests
