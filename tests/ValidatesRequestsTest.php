@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Kirschbaum\OpenApiValidator\ValidatesOpenApiSpec;
-use League\OpenAPIValidation\PSR7\Exception\NoOperation;
+use League\OpenAPIValidation\PSR7\Exception\NoPath;
 use League\OpenAPIValidation\PSR7\OperationAddress;
 use Orchestra\Testbench\TestCase;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
@@ -82,7 +82,7 @@ class ValidatesRequestsTest extends TestCase
                 'uri' => 'params',
             ],
             false,
-            NoOperation::class,
+            NoPath::class,
         ];
 
         yield 'Gets query with query params' => [
@@ -100,7 +100,7 @@ class ValidatesRequestsTest extends TestCase
                 'uri' => 'query-params/forks',
             ],
             false,
-            NoOperation::class,
+            NoPath::class,
         ];
 
         yield 'Posts with form' => [
