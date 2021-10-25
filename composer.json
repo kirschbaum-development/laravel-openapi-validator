@@ -20,7 +20,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "illuminate/support": "^6.0|^7.0|^8.0",
-        "league/openapi-psr7-validator": "^0.14|^0.15",
+        "league/openapi-psr7-validator": "^0.14|^0.15|^0.16",
         "nyholm/psr7": "^1.3",
         "symfony/psr-http-message-bridge": "^2.0"
     },
