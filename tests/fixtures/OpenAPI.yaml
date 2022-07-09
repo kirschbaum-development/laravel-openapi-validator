@@ -72,3 +72,15 @@ paths:
       responses:
         '200':
           description: OK
+  /private:
+    get:
+      responses:
+        '200':
+          description: OK
+      security:
+        - Basic: []
+components:
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic
