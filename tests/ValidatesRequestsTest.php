@@ -115,6 +115,15 @@ class ValidatesRequestsTest extends TestCase
             ],
             true,
         ];
+
+        yield 'Authentication required' => [
+            [
+                'method' => 'GET',
+                'uri' => 'private',
+                'server' => ['HTTP_Authorization' => 'Basic MTIzNDU2Nzg5MDo='],
+            ],
+            true,
+        ];
     }
 
     private function makeRequest($method, $uri, $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
