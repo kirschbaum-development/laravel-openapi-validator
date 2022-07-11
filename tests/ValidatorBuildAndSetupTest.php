@@ -150,7 +150,23 @@ class ValidatorBuildAndSetupTest extends TestCase
      */
     public function testBypassesAuthenticationInRequests()
     {
-        $request = $this->getAuthenticatedRequest(new SymfonyRequest());
+        $originRequest = new SymfonyRequest();
+        $request = $this->getAuthenticatedRequest($originRequest);
         $this->assertTrue($request->headers->has('Authorization'));
+        $this->assertNotSame($originRequest, $request);
+    }
+
+    /**
+     * @test
+     */
+    public function testDontSpoofAuthenticationInRequests()
+    {
+        $originRequest = new SymfonyRequest();
+        $authenticationHeaderValue = 'Basic MTIzNDU2Nzg5MDo=';
+        $originRequest->headers->set('Authorization', $authenticationHeaderValue);
+        $request = $this->getAuthenticatedRequest($originRequest);
+        $this->assertTrue($request->headers->has('Authorization'));
+        $this->assertEquals($authenticationHeaderValue, $request->headers->get('Authorization'));
+        $this->assertSame($originRequest, $request);
     }
 }
