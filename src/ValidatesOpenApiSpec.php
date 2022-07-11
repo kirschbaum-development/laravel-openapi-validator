@@ -226,11 +226,11 @@ trait ValidatesOpenApiSpec
      */
     protected function getAuthenticatedRequest(SymfonyRequest $request): SymfonyRequest
     {
-        // Spoofing when authentication headers are not present.
         if ($request->headers->has('Authorization')) {
             return $request;
         }
 
+        // Spoofing when authentication headers are not present.
         $authenticatedRequest = clone $request;
         $authenticatedRequest->headers->set('Authorization', 'Bearer token');
         
