@@ -40,7 +40,7 @@ class ValidatesRequestsTest extends TestCase
             if (is_null($expectedException)) {
                 $this->fail('Validation failed with unexpected exception ' . get_class($exception) . PHP_EOL . $exception->getMessage());
             }
-            $this->assertInstanceOf($expectedException, $exception, "Expected an exception of class [${expectedException}] to be thrown, got " . get_class($exception));
+            $this->assertInstanceOf($expectedException, $exception, "Expected an exception of class [{$expectedException}] to be thrown, got " . get_class($exception));
 
             $this->assertFalse($expectSuccess);
             // End the test here
