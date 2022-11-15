@@ -24,7 +24,7 @@ class ValidatorBuildAndSetupTest extends TestCase
      */
     public function testGetsOpenApiValidatorBuilder(string $extension)
     {
-        $this->app['config']->set('openapi_validator.spec_path', __DIR__."/fixtures/OpenAPI.${extension}");
+        $this->app['config']->set('openapi_validator.spec_path', __DIR__."/fixtures/OpenAPI.{$extension}");
         $builder = $this->getOpenApiValidatorBuilder();
 
         $this->assertInstanceOf(ValidatorBuilder::class, $builder);
@@ -40,13 +40,27 @@ class ValidatorBuildAndSetupTest extends TestCase
 
     /**
      * @test
+     * @dataProvider provideSpecUnknownFormats
      */
-    public function testThrowsExceptionForUnknownFormat()
+    public function testThrowsExceptionForUnknownFormat(string $extension)
     {
-        $this->app['config']->set('openapi_validator.spec_path', __DIR__.'/fixtures/OpenAPI.banana');
+        $this->app['config']->set('openapi_validator.spec_path', __DIR__ . "/fixtures/OpenAPI.{$extension}");
 
         $this->expectException(UnknownSpecFileTypeException::class);
+        $this->expectErrorMessage("Expected json or yaml type OpenAPI spec, got {$extension}");
         $this->getSpecFileType();
+    }
+
+    /**
+     * @return array
+     */
+    public function provideSpecUnknownFormats(): array
+    {
+        return [
+            ['banana'],
+            ['jsonn'],
+            ['yamll'],
+        ];
     }
 
     /**
@@ -105,7 +119,7 @@ class ValidatorBuildAndSetupTest extends TestCase
     public function provideResponseCodes()
     {
         for ($i = 0; $i <= 8; $i++) {
-            yield "Skips 50${i} by default" => [500 + $i, [], true];
+            yield "Skips 50{$i} by default" => [500 + $i, [], true];
         }
 
         yield 'Skips other 500s by default (1)' => [

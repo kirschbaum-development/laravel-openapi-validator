@@ -45,7 +45,7 @@ trait ValidatesOpenApiSpec
             } elseif ($specType === 'yaml') {
                 $this->openApiValidatorBuilder = (new ValidatorBuilder())->fromYaml($this->getOpenApiSpec());
             } else {
-                throw new UnknownParserForFileTypeException("Unknown parser for file type ${specType}");
+                throw new UnknownParserForFileTypeException("Unknown parser for file type {$specType}");
             }
         }
 
@@ -153,7 +153,7 @@ trait ValidatesOpenApiSpec
         $codes = $this->responseCodesToSkip ?? ['5\d\d'];
 
         return '/' . implode('|', array_map(function ($code) {
-            return "(${code})";
+            return "({$code})";
         }, $codes)) . '/';
     }
 
@@ -213,7 +213,7 @@ trait ValidatesOpenApiSpec
         $type = strtolower(Str::afterLast($this->getOpenApiSpecPath(), '.'));
 
         if (! $type || ! in_array($type, ['json', 'yaml'])) {
-            throw new UnknownSpecFileTypeException("Expected json or yaml type OpenAPI spec, got ${type}");
+            throw new UnknownSpecFileTypeException("Expected json or yaml type OpenAPI spec, got {$type}");
         }
 
         return $type;
