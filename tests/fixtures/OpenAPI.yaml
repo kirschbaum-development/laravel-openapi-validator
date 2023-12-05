@@ -73,12 +73,7 @@ paths:
         '200':
           description: OK
   /private:
-    get:
-      responses:
-        '200':
-          description: OK
-      security:
-        - Basic: []
+    $ref: 'sub-spec.yaml'
 components:
   securitySchemes:
     Basic:

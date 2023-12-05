@@ -41,9 +41,9 @@ trait ValidatesOpenApiSpec
             $specType = $this->getSpecFileType();
 
             if ($specType === 'json') {
-                $this->openApiValidatorBuilder = (new ValidatorBuilder())->fromJson($this->getOpenApiSpec());
+                $this->openApiValidatorBuilder = (new ValidatorBuilder())->fromJsonFile($this->getOpenApiSpecPath());
             } elseif ($specType === 'yaml') {
-                $this->openApiValidatorBuilder = (new ValidatorBuilder())->fromYaml($this->getOpenApiSpec());
+                $this->openApiValidatorBuilder = (new ValidatorBuilder())->fromYamlFile($this->getOpenApiSpecPath());
             } else {
                 throw new UnknownParserForFileTypeException("Unknown parser for file type {$specType}");
             }
@@ -183,16 +183,6 @@ trait ValidatesOpenApiSpec
         }
 
         return false;
-    }
-
-    /**
-     * Gets the open api spec (contents).
-     *
-     * @return string
-     */
-    protected function getOpenApiSpec(): string
-    {
-        return File::get($this->getOpenApiSpecPath());
     }
 
     /**
