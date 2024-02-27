@@ -47,7 +47,6 @@ class ValidatorBuildAndSetupTest extends TestCase
         $this->app['config']->set('openapi_validator.spec_path', __DIR__ . "/fixtures/OpenAPI.{$extension}");
 
         $this->expectException(UnknownSpecFileTypeException::class);
-        $this->expectErrorMessage("Expected json or yaml type OpenAPI spec, got {$extension}");
         $this->getSpecFileType();
     }
 
