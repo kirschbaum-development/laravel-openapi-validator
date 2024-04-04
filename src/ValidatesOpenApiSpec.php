@@ -93,7 +93,7 @@ trait ValidatesOpenApiSpec
 
         $kernel->terminate($request, $response);
 
-        $testResponse = $this->createTestResponse($response);
+        $testResponse = $this->createTestResponse($response, $request);
 
         if ($address) {
             $this->validateResponse($address, $testResponse->baseResponse);
