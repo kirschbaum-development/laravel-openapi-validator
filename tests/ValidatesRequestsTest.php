@@ -58,7 +58,7 @@ class ValidatesRequestsTest extends TestCase
      * Provides a handful of scenarios to test the validator is hooked up correctly.
      * We'll defer the actual testing to the league's validator itself.
      */
-    public function provideValidationScenarios()
+    public static function provideValidationScenarios()
     {
         yield 'Gets test OK' => [
             [

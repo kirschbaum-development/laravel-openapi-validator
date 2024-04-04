@@ -30,7 +30,7 @@ class ValidatorBuildAndSetupTest extends TestCase
         $this->assertInstanceOf(ValidatorBuilder::class, $builder);
     }
 
-    public function provideSpecFormats()
+    public static function provideSpecFormats()
     {
         return [
             ['json'],
@@ -53,7 +53,7 @@ class ValidatorBuildAndSetupTest extends TestCase
     /**
      * @return array
      */
-    public function provideSpecUnknownFormats(): array
+    public static function provideSpecUnknownFormats(): array
     {
         return [
             ['banana'],
@@ -115,7 +115,7 @@ class ValidatorBuildAndSetupTest extends TestCase
         $this->assertEquals($expected, $this->shouldSkipResponseValidation($response));
     }
 
-    public function provideResponseCodes()
+    public static function provideResponseCodes()
     {
         for ($i = 0; $i <= 8; $i++) {
             yield "Skips 50{$i} by default" => [500 + $i, [], true];
