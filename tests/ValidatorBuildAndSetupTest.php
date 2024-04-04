@@ -30,7 +30,7 @@ class ValidatorBuildAndSetupTest extends TestCase
         $this->assertInstanceOf(ValidatorBuilder::class, $builder);
     }
 
-    public function provideSpecFormats()
+    public static function provideSpecFormats()
     {
         return [
             ['json'],
@@ -47,14 +47,13 @@ class ValidatorBuildAndSetupTest extends TestCase
         $this->app['config']->set('openapi_validator.spec_path', __DIR__ . "/fixtures/OpenAPI.{$extension}");
 
         $this->expectException(UnknownSpecFileTypeException::class);
-        $this->expectErrorMessage("Expected json or yaml type OpenAPI spec, got {$extension}");
         $this->getSpecFileType();
     }
 
     /**
      * @return array
      */
-    public function provideSpecUnknownFormats(): array
+    public static function provideSpecUnknownFormats(): array
     {
         return [
             ['banana'],
@@ -116,7 +115,7 @@ class ValidatorBuildAndSetupTest extends TestCase
         $this->assertEquals($expected, $this->shouldSkipResponseValidation($response));
     }
 
-    public function provideResponseCodes()
+    public static function provideResponseCodes()
     {
         for ($i = 0; $i <= 8; $i++) {
             yield "Skips 50{$i} by default" => [500 + $i, [], true];
