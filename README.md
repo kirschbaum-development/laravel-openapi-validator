@@ -1,6 +1,6 @@
 # Laravel OpenAPI Validator
 
-![Laravel Supported Versions](https://img.shields.io/badge/laravel-6.x/7.x/8.x/9.x/10.x-green.svg)
+![Laravel Supported Versions](https://img.shields.io/badge/laravel-6.x/7.x/8.x/9.x/10.x/11.x-green.svg)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
 Using an OpenAPI spec is a great way to create and share a contract to which your API adheres. This package will automatically verify both the request and response used in your integration and feature tests wherever the Laravel HTTP testing methods (`->get('/uri')`, etc) are used.
