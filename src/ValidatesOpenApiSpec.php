@@ -5,7 +5,6 @@ namespace Kirschbaum\OpenApiValidator;
 use Illuminate\Contracts\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Testing\Concerns\MakesHttpRequests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Kirschbaum\OpenApiValidator\Exceptions\UnknownParserForFileTypeException;
 use Kirschbaum\OpenApiValidator\Exceptions\UnknownSpecFileTypeException;
