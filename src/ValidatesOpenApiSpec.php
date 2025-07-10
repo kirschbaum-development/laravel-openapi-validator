@@ -278,12 +278,18 @@ trait ValidatesOpenApiSpec
     private function handleAddressValidationFailed(AddressValidationFailed $exception, $content = null): void
     {
         $previous = $exception->getPrevious();
-
-        if ($previous && $previous instanceof \League\OpenAPIValidation\Schema\Exception\KeywordMismatch) {
-            print_r(PHP_EOL . json_encode(is_string($content) ? json_decode($content) : $content, JSON_PRETTY_PRINT) . PHP_EOL);
-            print_r($previous->getMessage() . PHP_EOL);
-            print_r('Key: ' . implode(' -> ', $previous->dataBreadCrumb()->buildChain()));
+        
+        if($previous) {
+            switch(true) {
+                case $previous instanceof \League\OpenAPIValidation\Schema\Exception\TypeMismatch:
+                case $previous instanceof \League\OpenAPIValidation\Schema\Exception\KeywordMismatch:
+                    print_r(PHP_EOL . json_encode(is_string($content) ? json_decode($content) : $content, JSON_PRETTY_PRINT) . PHP_EOL);
+                    print_r($previous->getMessage() . PHP_EOL);
+                    print_r('Key: ' . implode(' -> ', $previous->dataBreadCrumb()->buildChain()));
+                break;
+            }
         }
+        
         PHPUnit::fail($exception->getMessage());
     }
 
