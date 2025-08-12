@@ -94,9 +94,7 @@ trait ValidatesOpenApiSpec
 
         $testResponse = $this->createTestResponse($response, $request);
 
-        if ($address) {
-            $this->validateResponse($address, $testResponse->baseResponse);
-        }
+        $this->validateResponse($address, $testResponse->baseResponse);
 
         return $testResponse;
     }
@@ -229,10 +227,12 @@ trait ValidatesOpenApiSpec
     /**
      * Validates an HTTP Request
      */
-    protected function validateRequest(SymfonyRequest $request): ?OperationAddress
+    protected function validateRequest(SymfonyRequest $request): OperationAddress
     {
         if ($this->shouldSkipRequestValidation()) {
-            return null;
+            $psr7Request = $this->getPsr7Factory()->createRequest($request);
+
+            return new OperationAddress($psr7Request->getUri()->getPath(), strtolower($request->getMethod()));
         }
 
         $authenticatedRequest = $this->getAuthenticatedRequest($request);
