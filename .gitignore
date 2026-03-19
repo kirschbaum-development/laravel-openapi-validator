@@ -5,3 +5,4 @@ composer.lock
 .vscode
 .php_cs.cache
 build/*
+.phpunit.cache

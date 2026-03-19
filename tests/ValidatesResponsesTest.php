@@ -11,6 +11,8 @@ use League\OpenAPIValidation\PSR7\Exception\NoResponseCode;
 use League\OpenAPIValidation\PSR7\OperationAddress;
 use Orchestra\Testbench\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 class ValidatesResponsesTest extends TestCase
 {
@@ -24,10 +26,8 @@ class ValidatesResponsesTest extends TestCase
         $this->app['config']->set('openapi_validator.spec_path', __DIR__.'/fixtures/OpenAPI.yaml');
     }
 
-    /**
-     * @test
-     * @dataProvider provideValidationScenarios
-     */
+    #[Test]
+    #[DataProvider('provideValidationScenarios')]
     public function testValidatesResponses(OperationAddress $address, array $responseData, bool $expectSuccess, ?string $expectedException = null)
     {
         extract($responseData);
