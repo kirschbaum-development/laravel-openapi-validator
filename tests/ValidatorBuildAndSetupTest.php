@@ -10,6 +10,8 @@ use League\OpenAPIValidation\PSR7\ValidatorBuilder;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 class ValidatorBuildAndSetupTest extends TestCase
@@ -18,10 +20,8 @@ class ValidatorBuildAndSetupTest extends TestCase
     use MockeryPHPUnitIntegration;
     use WithFaker;
 
-    /**
-     * @test
-     * @dataProvider provideSpecFormats
-     */
+    #[Test]
+    #[DataProvider('provideSpecFormats')]
     public function testGetsOpenApiValidatorBuilder(string $extension)
     {
         $this->app['config']->set('openapi_validator.spec_path', __DIR__."/fixtures/OpenAPI.{$extension}");
@@ -38,10 +38,8 @@ class ValidatorBuildAndSetupTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     * @dataProvider provideSpecUnknownFormats
-     */
+    #[DataProvider('provideSpecUnknownFormats')]
+    #[Test]
     public function testThrowsExceptionForUnknownFormat(string $extension)
     {
         $this->app['config']->set('openapi_validator.spec_path', __DIR__ . "/fixtures/OpenAPI.{$extension}");
@@ -72,9 +70,7 @@ class ValidatorBuildAndSetupTest extends TestCase
         $this->assertTrue($this->shouldSkipRequestValidation());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function testSkipsResponseValidation()
     {
         $this->withoutResponseValidation();
@@ -82,9 +78,7 @@ class ValidatorBuildAndSetupTest extends TestCase
         $this->assertTrue($this->shouldSkipResponseValidation(Mockery::mock(Response::class)));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function testSkipsValidation()
     {
         $this->withoutValidation();
@@ -94,10 +88,8 @@ class ValidatorBuildAndSetupTest extends TestCase
         $this->assertTrue($this->shouldSkipResponseValidation(Mockery::mock(Response::class)));
     }
 
-    /**
-     * @test
-     * @dataProvider provideResponseCodes
-     */
+    #[DataProvider('provideResponseCodes')]
+    #[Test]
     public function testSkipsResponseCodes($responseCode, $codesToSkip, bool $expected)
     {
         if (is_callable($responseCode)) {
@@ -158,9 +150,7 @@ class ValidatorBuildAndSetupTest extends TestCase
         yield 'Doesn\'t skip valid regex' => [206, '2[1-9]6', false];
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function testBypassesAuthenticationInRequests()
     {
         $originRequest = new SymfonyRequest();
@@ -169,9 +159,7 @@ class ValidatorBuildAndSetupTest extends TestCase
         $this->assertNotSame($originRequest, $request);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function testDontSpoofAuthenticationInRequests()
     {
         $originRequest = new SymfonyRequest();

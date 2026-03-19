@@ -10,6 +10,8 @@ use Kirschbaum\OpenApiValidator\ValidatesOpenApiSpec;
 use League\OpenAPIValidation\PSR7\Exception\NoPath;
 use League\OpenAPIValidation\PSR7\OperationAddress;
 use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 class ValidatesRequestsTest extends TestCase
@@ -24,10 +26,8 @@ class ValidatesRequestsTest extends TestCase
         $this->app['config']->set('openapi_validator.spec_path', __DIR__.'/fixtures/OpenAPI.yaml');
     }
 
-    /**
-     * @test
-     * @dataProvider provideValidationScenarios
-     */
+    #[Test]
+    #[DataProvider('provideValidationScenarios')]
     public function testValidatesRequests(array $requestData, bool $expectSuccess, ?string $expectedException = null)
     {
         extract($requestData);
